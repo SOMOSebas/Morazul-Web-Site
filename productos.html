@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos - Morazul</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <i class="fas fa-shoe-prints"></i>
+                <span>Morazul</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="productos.html" class="active">Productos</a></li>
+                <li><a href="categorias.html">Categorías</a></li>
+                <li><a href="ofertas.html">Ofertas</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+
+        </nav>
+    </header>
+
+    <main class="products-page">
+        <section class="page-header">
+            <div class="container">
+                <h1>Nuestros Productos</h1>
+                <p>Descubre nuestra amplia colección de calzado</p>
+            </div>
+        </section>
+
+        <section class="products-section">
+            <div class="container">
+                <div class="filters">
+                    <div class="filter-group">
+                        <label>Categoría:</label>
+                        <select id="category-filter">
+                            <option value="">Todas</option>
+                            <option value="deportivos">Deportivos</option>
+                            <option value="formales">Formales</option>
+                            <option value="casuales">Casuales</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Precio:</label>
+                        <select id="price-filter">
+                            <option value="">Todos</option>
+                            <option value="0-50">$0 - $50.000</option>
+                            <option value="50-100">$50.000 - $100.000</option>
+                            <option value="100+">$100.000+</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="products-grid">
+                    <div class="product-card" data-category="deportivos" data-price="75">
+                        <img src="/IMAGENES/NIKE+AIR+MAX+NUAXIS.avif" alt="Zapato Deportivo 1">
+                        <div class="product-info">
+                            <h3>Nike Air Max</h3>
+                            <p class="price">$100.000</p>
+                            <button class="add-to-cart">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="product-card" data-category="formales" data-price="120">
+                        <img src="https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=300&h=300&fit=crop" alt="Zapato Formal 1">
+                        <div class="product-info">
+                            <h3>Oxford Clásico</h3>
+                            <p class="price">$100.000</p>
+                            <button class="add-to-cart">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="product-card" data-category="casuales" data-price="45">
+                        <img src="/IMAGENES/converse.webp" alt="Zapato Casual 1">
+                        <div class="product-info">
+                            <h3>Converse All Star</h3>
+                            <p class="price">$90.000</p>
+                            <button class="add-to-cart">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="product-card" data-category="deportivos" data-price="90">
+                        <img src="/IMAGENES/ulta.webp" alt="Zapato Deportivo 2">
+                        <div class="product-info">
+                            <h3>Adidas Ultraboost</h3>
+                            <p class="price">$90.000</p>
+                            <button class="add-to-cart">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="product-card" data-category="formales" data-price="150">
+                        <img src="/IMAGENES/4-4.webp" alt="Zapato Formal 2">
+                        <div class="product-info">
+                            <h3>Loafer Premium</h3>
+                            <p class="price">$150.000</p>
+                            <button class="add-to-cart">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                    <div class="product-card" data-category="casuales" data-price="35">
+                        <img src="/IMAGENES/vans.webp" alt="Zapato Casual 2">
+                        <div class="product-info">
+                            <h3>Vans Old School</h3>
+                            <p class="price">$110.000</p>
+                            <button class="add-to-cart">Agregar al Carrito</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <i class="fas fa-shoe-prints"></i>
+                        <span>Morazul</span>
+                    </div>
+                    <p>Tu tienda de confianza para encontrar el calzado perfecto.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="productos.html">Productos</a></li>
+                        <li><a href="categorias.html">Categorías</a></li>
+                        <li><a href="ofertas.html">Ofertas</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <p><i class="fas fa-phone"></i> +57 313 700 9747</p>
+                    <p><i class="fas fa-envelope"></i> info@morazul.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 3-029 oiti</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Síguenos</h4>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Morazul. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="products.js"></script>
+</body>
+</html>

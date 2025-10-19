@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos - Morazul</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <i class="fas fa-shoe-prints"></i>
+                <span>Morazul</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="categorias.html">Categorías</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="products-container">
+        <h1 class="page-title" id="categoria-titulo">Productos</h1>
+        
+        <div class="products-grid" id="productos-lista">
+            <!-- Los productos se cargarán dinámicamente con JavaScript -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="IMAGENES/Imagen Principal Zpt.jpeg" alt="Zapato deportivo">
+                </div>
+                <h3>Zapato Deportivo</h3>
+                <p class="product-price">$45.99</p>
+                <p class="product-description">Zapato deportivo cómodo y ligero para actividades diarias.</p>
+                <a href="contacto.html?producto=zapato-deportivo" class="btn btn-primary">Comprar</a>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="IMAGENES/Imagen Principal Zpt.jpeg" alt="Zapato casual">
+                </div>
+                <h3>Zapato Casual</h3>
+                <p class="product-price">$39.99</p>
+                <p class="product-description">Zapato casual elegante para uso diario.</p>
+                <a href="contacto.html?producto=zapato-casual" class="btn btn-primary">Comprar</a>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="IMAGENES/Imagen Principal Zpt.jpeg" alt="Zapato formal">
+                </div>
+                <h3>Zapato Formal</h3>
+                <p class="product-price">$59.99</p>
+                <p class="product-description">Zapato formal de alta calidad para ocasiones especiales.</p>
+                <a href="contacto.html?producto=zapato-formal" class="btn btn-primary">Comprar</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
