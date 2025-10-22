@@ -1,69 +1,53 @@
-
+//  Desplazamiento suave entre secciones
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+    anchor.addEventListener('click', e => {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
+        const target = document.querySelector(anchor.getAttribute('href'));
+        target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 });
 
-// Header background opacity on scroll
+//  Cambiar fondo del header al hacer scroll
 window.addEventListener('scroll', () => {
     const header = document.querySelector('.header');
-    const scrolled = window.pageYOffset;
-    
-    if (scrolled > 100) {
-        header.classList.add('scrolled');
-    } else {
-        header.classList.remove('scrolled');
-    }
+    header?.classList.toggle('scrolled', window.scrollY > 100);
 });
 
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
+//  Animaciones al entrar en pantalla
+const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.style.opacity = '1';
             entry.target.style.transform = 'translateY(0)';
+            observer.unobserve(entry.target); // Deja de observar para optimizar
         }
     });
-}, observerOptions);
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-// Observe feature cards
+//  Inicializar animaciones al cargar el DOM
 document.addEventListener('DOMContentLoaded', () => {
-    const featureCards = document.querySelectorAll('.feature-card');
-    featureCards.forEach((card, index) => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-        observer.observe(card);
-    });
+    const animatedElements = [
+        ...document.querySelectorAll('.feature-card'),
+        ...document.querySelectorAll('.footer-brand, .footer-section, .footer-bottom')
+    ];
     
-    // Observe footer elements
-    const footerElements = document.querySelectorAll('.footer-brand, .footer-section, .footer-bottom');
-    footerElements.forEach((element, index) => {
-        element.style.opacity = '0';
-        element.style.transform = 'translateY(30px)';
-        element.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-        observer.observe(element);
+    animatedElements.forEach((el, i) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = `opacity 0.6s ease ${i * 0.1}s, transform 0.6s ease ${i * 0.1}s`;
+        observer.observe(el);
     });
+
+    initMobileMenu();
+    updateCartCount();
 });
 
-// Mobile menu toggle
-const createMobileMenu = () => {
+//  Menú móvil con hamburguesa
+function initMobileMenu() {
     const navbar = document.querySelector('.navbar');
     const navMenu = document.querySelector('.nav-menu');
-    
-    // Create hamburger button if it doesn't exist
+    if (!navbar || !navMenu) return;
+
     let hamburger = document.querySelector('.hamburger');
     if (!hamburger) {
         hamburger = document.createElement('button');
@@ -71,73 +55,58 @@ const createMobileMenu = () => {
         hamburger.innerHTML = '<i class="fas fa-bars"></i>';
         navbar.appendChild(hamburger);
     }
-    
-    // Toggle menu on mobile
-    hamburger.addEventListener('click', () => {
+
+    const toggleMenu = () => {
         navMenu.classList.toggle('active');
-        const icon = hamburger.querySelector('i');
-        if (navMenu.classList.contains('active')) {
-            icon.className = 'fas fa-times';
-        } else {
-            icon.className = 'fas fa-bars';
-        }
-    });
-    
-    // Close menu when clicking on a link
-    const navLinks = document.querySelectorAll('.nav-menu a');
-    navLinks.forEach(link => {
+        hamburger.querySelector('i').className = navMenu.classList.contains('active')
+            ? 'fas fa-times'
+            : 'fas fa-bars';
+    };
+
+    hamburger.addEventListener('click', toggleMenu);
+    navMenu.querySelectorAll('a').forEach(link =>
         link.addEventListener('click', () => {
             navMenu.classList.remove('active');
             hamburger.querySelector('i').className = 'fas fa-bars';
-        });
-    });
-    
-    // Show/hide hamburger based on screen size
-    const checkScreenSize = () => {
-        if (window.innerWidth <= 768) {
-            hamburger.style.display = 'block';
-        } else {
-            hamburger.style.display = 'none';
+        })
+    );
+
+    const handleResize = () => {
+        const isMobile = window.innerWidth <= 768;
+        hamburger.style.display = isMobile ? 'block' : 'none';
+        if (!isMobile) {
             navMenu.classList.remove('active');
             hamburger.querySelector('i').className = 'fas fa-bars';
         }
     };
-    
-    window.addEventListener('resize', checkScreenSize);
-    checkScreenSize();
-};
 
-// Shopping cart functionality (basic)
-let cart = JSON.parse(localStorage.getItem('morazul-cart')) || [];
+    handleResize();
+    window.addEventListener('resize', handleResize);
+}
+
+//  Carrito básico con localStorage
+const CART_KEY = 'morazul-cart';
+let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+
+function saveCart() {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+}
 
 function addToCart(product) {
-    const existingItem = cart.find(item => item.name === product.name);
-    
-    if (existingItem) {
-        existingItem.quantity += 1;
+    const item = cart.find(i => i.name === product.name);
+    if (item) {
+        item.quantity++;
     } else {
-        cart.push({
-            ...product,
-            quantity: 1,
-            id: Date.now()
-        });
+        cart.push({ ...product, quantity: 1, id: Date.now() });
     }
-    
-    localStorage.setItem('morazul-cart', JSON.stringify(cart));
+    saveCart();
     updateCartCount();
 }
 
 function updateCartCount() {
-    const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
-    // Update cart count in UI if cart icon exists
     const cartIcon = document.querySelector('.cart-count');
     if (cartIcon) {
-        cartIcon.textContent = cartCount;
+        const count = cart.reduce((sum, i) => sum + i.quantity, 0);
+        cartIcon.textContent = count;
     }
 }
-
-// Initialize mobile menu and cart
-document.addEventListener('DOMContentLoaded', () => {
-    createMobileMenu();
-    updateCartCount();
-});
